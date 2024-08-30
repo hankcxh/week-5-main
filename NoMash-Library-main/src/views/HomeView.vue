@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref } from 'vue'
 import DataTable from 'primevue/datatable'
@@ -19,8 +18,7 @@ const submittedCards = ref([])
 const submitForm = () => {
   validateName(true)
   validatePassword(true)
-  addReason(true)
-  if (!errors.value.username && !errors.value.password && !errors.value.reason) {
+  if (!errors.value.username && !errors.value.password) {
     submittedCards.value.push({ ...formData.value })
     clearForm()
   }
@@ -83,15 +81,6 @@ const validateConfirmPassword = (blur) => {
     errors.value.confirmPassword = null
   }
 }
-
-const addReason = () => {
-  if (formData.value.reason.toLowerCase().includes('friend')) {
-    errors.value.reason = 'Great to have a friend';
-  } else {
-    errors.value.reason = null;
-  }
-};
-
 </script>
 
 <template>
@@ -177,11 +166,7 @@ const addReason = () => {
               id="reason"
               rows="3"
               v-model="formData.reason"
-              @input="addeReason"
             ></textarea>
-            <div v-if="errors.reason" :class="{'text-success': errors.reason === 'Great to have a friend', 'text-danger': errors.reason !== 'Great to have a friend'}">
-             {{ errors.reason }}
-            </div>
           </div>
           <div class="mb-3">
             <label for="reason" class="form-label">Suburb</label>
